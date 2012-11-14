@@ -85,6 +85,13 @@ App.peopleController = Ember.ArrayController.create({
         });
         this.pushObject(entry);
 		console.log(entry);
+		var entry = App.Person.create({
+          	name: 'Tom',
+			spouse: 'Tom',
+			taken:0
+        });
+        this.pushObject(entry);
+		console.log(entry);
 
         console.log("Adding first username");
 
