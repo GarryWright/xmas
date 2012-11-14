@@ -18,7 +18,7 @@ App.peopleController = Ember.ArrayController.create({
         var entry = App.Person.create({
           	name: 'Garry',
 			spouse: 'Kate',
-			taken:0
+			taken:0 
         });
         this.pushObject(entry);
 		console.log(entry);
@@ -101,32 +101,53 @@ App.peopleController = Ember.ArrayController.create({
     },
 	matchPeople: function() {
 		for (var i = 0; i < this.content.length; i++) {
-			this.content[i].taken=0;
+			this.content[i].set('taken',0);
 		}
-		var left = this.content.length-1;
+		
 		console.log("length "+left);
+		
     	for (var i = 0; i < this.content.length; i++) {
-		        console.log(this.content[i].name);
-           		too = Math.floor(Math.random()*(left))
-			//	window.prompt(this.content[i].name + " " +too,""); 
-
+		        console.log(this.content[i].get('name'));
+		        var left = 0;
 				for (var t = 0; t < this.content.length; t++) {
-		           if (this.content[t].name!=this.content[i].spouse && this.content[t].name!=this.content[i].name && this.content[t].taken==0) { too=too-1;}
-				   if (too==-1) { too=t; break;}
+					console.log(t + " " + this.content[t].get('name') + " " + this.content[i].get('spouse') + " " + this.content[t].get('taken'));	
+		           if (this.content[t].get('name')!=this.content[i].get('spouse') && this.content[t].get('name')!=this.content[i].get('name') && this.content[t].get('taken')===0) {
+						console.log("left is going up");
+			 			left=left+1;}
 				}
-				this.content[too].taken=1;
-				console.log(too); 
+		        too = Math.floor(Math.random()*(left))+1
+		        too = too;
+				if (too===0) {
+			  		window.prompt(this.content[i].get('name') + " " +too,""); 
+				}
+                console.log("left " + left + " too " + too);
+				target = -1
+				for (var t = 0; t < this.content.length; t++) {
+					console.log(i);
+					console.log(t);
+					console.log(t + " " + this.content[t].get('name') + " " + this.content[i].get('spouse') + " " + this.content[t].get('taken'));	
+		           if (this.content[t].get('name')!=this.content[i].get('spouse') && this.content[t].get('name')!=this.content[i].get('name') && this.content[t].get('taken')===0) {
+						console.log("Too is going down");
+			 			too=too-1;}
+				   if (too===0) { target=t; console.log("found " + t); break;}
+				}
+				
+				if (target!=-1) {
+					console.log(target);
+					console.log("before "+ this.content[target].get('taken'));
+					this.content[target].set('taken',1);
+					console.log("after "+this.content[target].get('taken'));
+					console.log(target); 
 
-				this.content[i].set('got'," but has been chossen to buy a gift for " + this.content[too].name);
-				console.log(this.content[i].got);
-				console.log(this.content[i].name + " buys gift for " + this.content[too].name);
-				console.log(this.content);
-				left=left-1;
-				console.log("length now "+left);
+					this.content[i].set('got'," but has been choosen to buy a gift for " + this.content[target].get('name'));
+					console.log(this.content[i].get('got'));
+					console.log(this.content[i].get('name') + " buys gift for " + this.content[target].get('name'));
+					console.log(this.content);
+					left=left-1;
+					console.log("length now "+left);
+				}
     		}
-			for (var i = 0; i < this.content.length; i++) {
-				this.content[i].taken=0;
-			}
+
     }
 
 });
