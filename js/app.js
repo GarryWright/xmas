@@ -87,7 +87,7 @@ App.peopleController = Ember.ArrayController.create({
 		console.log(entry);
 		var entry = App.Person.create({
           	name: 'Tom',
-			spouse: 'Tom',
+			spouse: 'Tom ',
 			taken:0
         });
         this.pushObject(entry);
@@ -139,7 +139,7 @@ App.peopleController = Ember.ArrayController.create({
 				   if (too===0) { target=t; console.log("found " + t); break;}
 				}
 				
-				if (target!=-1) {
+				if (target!=-1 && this.content[target].get('taken')!=1) {
 					console.log(target);
 					console.log("before "+ this.content[target].get('taken'));
 					this.content[target].set('taken',1);
